@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { VideoCard } from '../../video-card/entities/video-card.entity';
 
 @Entity('users')
 export class User {
@@ -38,4 +39,7 @@ export class User {
   })
   @Column({ nullable: true })
   hashed_refresh_token: string;
+
+  @OneToMany(() => VideoCard, (card) => card.user)
+  videoCards: VideoCard[];
 }
