@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ScheduleModule } from '@nestjs/schedule';
 import { UserModule } from './user/user.module';
 import { VideoCardModule } from './video-card/video-card.module';
+import { MiningModule } from './mining/mining.module';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
@@ -23,11 +26,12 @@ import { VideoCardModule } from './video-card/video-card.module';
         database: config.get<string>('TYPEORM_DATABASE'),
         autoLoadEntities: true,
         synchronize: true,
-        logging: true,
+        logging: false,
       }),
     }),
     UserModule,
     VideoCardModule,
+    MiningModule,
   ],
 })
 export class AppModule {}

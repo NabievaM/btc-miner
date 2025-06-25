@@ -3,6 +3,7 @@ import {
   Injectable,
   UnauthorizedException,
   BadRequestException,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
@@ -168,5 +169,26 @@ export class UserService {
     });
 
     return tokens;
+  }
+
+  async getProfile(userId: number) {
+    const user = await this.userRepo.findOne({
+      where: { id: userId },
+      relations: ['videoCards'],
+    });
+
+    if (!user) {
+      throw new NotFoundException('Пользователь не найден');
+    }
+
+    const { id, email, number, monthlyProfit, videoCards } = user;
+
+    return {
+      id,
+      email,
+      number,
+      monthlyProfit,
+      videoCards,
+    };
   }
 }

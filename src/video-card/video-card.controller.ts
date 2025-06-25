@@ -1,10 +1,11 @@
 import { Controller, Post, Body, UseGuards, Req } from '@nestjs/common';
 import { VideoCardService } from './video-card.service';
 import { BuyVideoCardDto } from './dto/create-video-card.dto';
-import { ApiBearerAuth, ApiOperation, ApiBody } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiBody, ApiTags } from '@nestjs/swagger';
 import { AccessTokenGuard } from '../common/guards/access-token.guard';
 import { RequestWithUser } from '../common/types/express-request-with-user';
 
+@ApiTags('Видеокарты')
 @Controller('store')
 export class VideoCardController {
   constructor(private readonly videoCardService: VideoCardService) {}

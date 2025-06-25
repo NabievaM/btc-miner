@@ -40,6 +40,15 @@ export class User {
   @Column({ nullable: true })
   hashed_refresh_token: string;
 
+  @ApiProperty({
+    example: 0.0216,
+    description: 'Ежемесячный доход пользователя в BTC',
+    type: 'number',
+    default: 0,
+  })
+  @Column({ type: 'float', default: 0 })
+  monthlyProfit: number;
+
   @OneToMany(() => VideoCard, (card) => card.user)
   videoCards: VideoCard[];
 }

@@ -26,6 +26,7 @@ export class VideoCardService {
 
     const card = this.videoCardRepo.create({
       type,
+      user: { id: user.id, email: user.email },
     });
 
     await this.videoCardRepo.save(card);
@@ -33,10 +34,6 @@ export class VideoCardService {
     return {
       message: 'Карта успешно куплена',
       card,
-      user: {
-        id: user.id,
-        email: user.email,
-      },
     };
   }
 }

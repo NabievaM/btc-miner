@@ -16,9 +16,9 @@ async function start() {
       .setVersion('1.0')
       .build();
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('/api/docs', app, document);
+    SwaggerModule.setup('/docs', app, document);
 
-    app.setGlobalPrefix('api');
+    // app.setGlobalPrefix('api');
     app.use(cookieParser());
     app.enableCors();
     app.useGlobalPipes(new ValidationPipe());
